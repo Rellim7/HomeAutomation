@@ -9,15 +9,24 @@ class door(models.Model):
     currentState = models.CharFeild(max_length = 50)
     lastChanged = models.DateTimeField()
 
+    def __str__(self):
+        return self.doorName
 
 class openEvent(models.Model):
     user = models.ForeignKey()
     openID = models.AutoFeild(primary_key = True)
-    openTime =
+    openTime = models.DateTimeField()
     door = models.ForeignKey()
+
+    def __str__(self):
+        return self.user + " " + door + " " +openTime
+
 
 class closeEvent(models.Model):
     user= models.ForeignKey()
     closeTime = models.DateTimeField()
     closeID = models.AutoField(primary_key = True)
     door = models.ForeignKey()
+
+    def __str__(self):
+        return self.user + " " + door + " " +openTime
