@@ -19,7 +19,7 @@ class openEvent(models.Model):
     door = models.ForeignKey()
 
     def __str__(self):
-        return self.user + " " + door + " " +openTime
+        return self.user + " " + str(self.door) + " " +self.openTime
 
 
 class closeEvent(models.Model):
@@ -29,4 +29,4 @@ class closeEvent(models.Model):
     door = models.ForeignKey()
 
     def __str__(self):
-        return self.user + " " + door + " " +openTime
+        return self.user + " " + str(self.door) + " " +self.openTime
