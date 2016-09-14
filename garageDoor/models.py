@@ -1,12 +1,12 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class door(models.Model):
-    doorName = models.CharField(maxlength = 200)
+    doorName = models.CharField(max_length = 200)
     doorID = models.AutoField(primary_key = True)
-    currentState = models.CharFeild(max_length = 50)
+    currentState = models.CharField(max_length = 50)
     lastChanged = models.DateTimeField()
     sensorPin = models.IntegerField()
     relayPin = models.IntegerField()
@@ -14,20 +14,20 @@ class door(models.Model):
         return self.doorName
 
 class openEvent(models.Model):
-    user = models.ForeignKey()
+    #user = models.ForeignKey()
     openID = models.AutoField(primary_key = True)
     openTime = models.DateTimeField()
-    door = models.ForeignKey()
+    door = models.ForeignKey('door',on_delete = models.CASCADE, related_name ='doorOpened')
 
     def __str__(self):
-        return self.user + " " + str(self.door) + " " +self.openTime
+        return " " + str(self.door) + " " +str(self.openTime)
 
 
 class closeEvent(models.Model):
-    user= models.ForeignKey()
+    #user= models.ForeignKey()
     closeTime = models.DateTimeField()
     closeID = models.AutoField(primary_key = True)
-    door = models.ForeignKey()
+    door = models.ForeignKey('door',on_delete = models.CASCADE, related_name ='doorClosed')
 
     def __str__(self):
-        return self.user + " " + str(self.door) + " " +self.openTime
+        return " " + str(self.door) + " " +str(self.closeTime)

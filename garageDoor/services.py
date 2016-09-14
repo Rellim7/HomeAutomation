@@ -3,7 +3,7 @@ import time
 from .models import *
 
 
-gpio.setmode(GPIO.BCM)
+gpio.setmode(gpio.BCM)
 
 class controller():
     """
@@ -20,7 +20,7 @@ class controller():
         """
         #gather the info about the door to do the checks
         doorName = door.doorName
-        userName = user.userName
+        #userName = user.userName
         sensorPin = door.sensorPin
         relayPin = door.relayPin
 
@@ -30,7 +30,7 @@ class controller():
         status = gpio.input(sensorPin)
         if status == 0:
             print("opening")
-            trigger(relayPin)
+            toggle(relayPin)
         else:
             print("its already open you idiot")
 
@@ -43,7 +43,7 @@ class controller():
         """
         #gather the info about the door to do the checks
         doorName = door.doorName
-        userName = user.userName
+        #userName = user.userName
         sensorPin = door.sensorPin
         relayPin = door.relayPin
 
@@ -53,7 +53,7 @@ class controller():
         status = gpio.input(sensorPin)
         if status == 1:
             print("closing")
-            trigger(relayPin)
+            toggle(relayPin)
         else:
             print("its already closed you idiot")
 
@@ -67,7 +67,7 @@ class controller():
         """
         #gather the info about the door to do the checks
         doorName = door.doorName
-        userName = user.userName
+        #userName = user.userName
         sensorPin = door.sensorPin
         relayPin = door.relayPin
 
@@ -78,7 +78,7 @@ class controller():
         if status == 1:
             print("closing")
             while status == 1:
-                gpio.output(relayPin. False)
+                gpio.output(relayPin, False)
                 status = gpio.input(sensorPin)
                 time.sleep(0.2)
             gpio.output(relayPin, True)
@@ -87,7 +87,8 @@ class controller():
         return status
 
     def toggle(relayPin):  # a "button Press"
-        gpio.output(relayPin. False)
+        gpio.setup(relayPin, gpio.OUT)
+        gpio.output(relayPin, False)
         time.sleep(0.2)
         gpio.output(relayPin, True)
         return
