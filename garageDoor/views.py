@@ -4,7 +4,7 @@ from garageDoor.models import door, openEvent, closeEvent
 from garageDoor.services import controller
 # Create your views here.
 def index(request):
-    return Httpresponse("Welcome To Prime Ingenuitys Garage door division")
+    return HttpResponse("Welcome To Prime Ingenuitys Garage door division")
 
 def openDoor(request):
     doorObj = door.objects.filter(doorName="home")
