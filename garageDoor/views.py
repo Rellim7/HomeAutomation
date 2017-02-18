@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from garageDoor.models import door, openEvent, closeEvent
-from services import controller
+from garageDoor.services import controller
 # Create your views here.
 def index(request):
     return Httpresponse("Welcome To Prime Ingenuitys Garage door division")
