@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class door(models.Model):
     doorName = models.CharField(max_length = 200)
     doorID = models.AutoField(primary_key = True)
-    currentState = models.CharField(max_length = 50)
+    currentState = models.CharField(max_length = 50, default='closed')
     lastChanged = models.DateTimeField()
     sensorPin = models.IntegerField()
     relayPin = models.IntegerField()
