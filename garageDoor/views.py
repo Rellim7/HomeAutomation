@@ -8,7 +8,8 @@ def index(request):
 
 def openDoor(request):
     doorObj = door.objects.filter(doorName="home")
-    controller(doorObj,'rellim')
+    cont = controller
+    cont.open(doorObj,'rellim')
     return HttpResponse("door has been opened!")
 
 def closeDoor(request):
