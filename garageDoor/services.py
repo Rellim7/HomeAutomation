@@ -11,7 +11,12 @@ class controller():
     This module only handles the door functions.
     """
     def __init__():
-        return
+        self.sensorPin = 4
+        self.sensorPin = 17
+        gpio.setup(self.sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
+        gpio.setup(self.relayPin, gpio.OUT)
+        status = gpio.input(self.sensorPin)
+        return status
 
     def open(door, user):
         """
@@ -21,22 +26,17 @@ class controller():
         #gather the info about the door to do the checks
         doorName = door.doorName
         #userName = user.userName
-        sensorPin = door.sensorPin
-        relayPin = door.relayPin
 
-        gpio.setup(sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
-        gpio.setup(relayPin, gpio.OUT)
-
-        status = gpio.input(sensorPin)
+        status = gpio.input(self.sensorPin)
         if status == 0:
             print("opening")
-            toggle(relayPin)
+            toggle(self.relayPin)
         else:
             print("its already open you idiot")
 
         return
 
-    def close(door, user):
+    def close(door):
         """
         closes the door.
         also will check if the door is already closed.  If it is throw an error.  Pulse the signal on then off.
@@ -44,16 +44,11 @@ class controller():
         #gather the info about the door to do the checks
         doorName = door.doorName
         #userName = user.userName
-        sensorPin = door.sensorPin
-        relayPin = door.relayPin
 
-        gpio.setup(sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
-        gpio.setup(relayPin, gpio.OUT)
-
-        status = gpio.input(sensorPin)
+        status = gpio.input(self.sensorPin)
         if status == 1:
             print("closing")
-            toggle(relayPin)
+            toggle(self.relayPin)
         else:
             print("its already closed you idiot")
 
@@ -68,31 +63,25 @@ class controller():
         #gather the info about the door to do the checks
         doorName = door.doorName
         #userName = user.userName
-        sensorPin = door.sensorPin
-        relayPin = door.relayPin
 
-        gpio.setup(sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
-        gpio.setup(relayPin, gpio.OUT)
-
-        status = gpio.input(sensorPin)
+        status = gpio.input(self.sensorPin)
         if status == 1:
             print("closing")
             while status == 1:
-                gpio.output(relayPin, False)
+                gpio.output(self.relayPin, False)
                 status = gpio.input(sensorPin)
                 time.sleep(0.2)
-            gpio.output(relayPin, True)
+            gpio.output(self.relayPin, True)
         else:
             print("its already closed you idiot")
         return status
 
     def toggle(relayPin):  # a "button Press"
-        gpio.setup(relayPin, gpio.OUT)
-        gpio.output(relayPin, False)
+        gpio.output(self.relayPin, True)
         time.sleep(0.2)
-        gpio.output(relayPin, True)
+        gpio.output(self.relayPin, False)
         return
 
     def statusCheck(door):
-
+        status = gpio.input(self.sensorPin)
         return status
