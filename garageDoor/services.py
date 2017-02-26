@@ -11,8 +11,8 @@ class controller(object):
     This module only handles the door functions.
     """
     def __init__(self):
-        self.relayPin = 4
-        self.sensorPin = 17
+        self.relayPin = 17
+        self.sensorPin = 4
         gpio.setup(self.sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
         gpio.setup(self.relayPin, gpio.OUT)
         return 
