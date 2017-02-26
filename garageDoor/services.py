@@ -26,8 +26,8 @@ class controller(object):
         #doorName = door.doorName
         #userName = user.userName
 
-        status = gpio.input(self.sensorPin)
-        if status == 0:
+        status =1 # gpio.input(self.sensorPin)
+        if status == 1:
             print("opening")
             self.toggle(self.relayPin)
         else:
