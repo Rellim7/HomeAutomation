@@ -15,8 +15,7 @@ class controller(object):
         self.sensorPin = 17
         gpio.setup(self.sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
         gpio.setup(self.relayPin, gpio.OUT)
-        status = gpio.input(self.sensorPin)
-        return status
+        return 
 
     def open(self):
         """
