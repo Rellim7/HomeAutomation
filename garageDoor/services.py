@@ -5,7 +5,7 @@ from .models import *
 
 gpio.setmode(gpio.BCM)
 
-class controller():
+class controller(object):
     """
     send the door object though each function so that the whole program can handle multiple doors.
     This module only handles the door functions.

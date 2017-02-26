@@ -9,7 +9,7 @@ def index(request):
 def openDoor(request):
     doorObj = door.objects.filter(doorName="home")
     cont = controller
-    cont.open(doorObj,'rellim')
+    cont.open()
     return HttpResponse("door has been opened!")
 
 def closeDoor(request):
