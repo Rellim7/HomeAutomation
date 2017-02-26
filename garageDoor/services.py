@@ -29,7 +29,7 @@ class controller(object):
         status = gpio.input(self.sensorPin)
         if status == 0:
             print("opening")
-            toggle(self.relayPin)
+            self.toggle(self.relayPin)
         else:
             print("its already open you idiot")
 
@@ -47,7 +47,7 @@ class controller(object):
         status = gpio.input(self.sensorPin)
         if status == 1:
             print("closing")
-            toggle(self.relayPin)
+            self.toggle(self.relayPin)
         else:
             print("its already closed you idiot")
 
