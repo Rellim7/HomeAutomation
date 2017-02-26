@@ -18,7 +18,7 @@ class controller():
         status = gpio.input(self.sensorPin)
         return status
 
-    def open()):
+    def open():
         """
         opens the door.
         also will check if the door is already open.  If it is throw an error.
