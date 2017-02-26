@@ -18,7 +18,7 @@ class controller():
         status = gpio.input(self.sensorPin)
         return status
 
-    def open(door, user):
+    def open()):
         """
         opens the door.
         also will check if the door is already open.  If it is throw an error.
@@ -36,7 +36,7 @@ class controller():
 
         return
 
-    def close(door):
+    def close():
         """
         closes the door.
         also will check if the door is already closed.  If it is throw an error.  Pulse the signal on then off.
@@ -54,7 +54,7 @@ class controller():
 
         return status
 
-    def forceClose(door, user):
+    def forceClose():
         """
         closes the door.   This call is dangerous cause it could cause damage to anything in the way of the door.
         If the door is closed already this will throw a bloody tantrum.   It has to  hold the button down for X amount  of seconds.  Also checking to see if the door has made it to the
@@ -76,12 +76,12 @@ class controller():
             print("its already closed you idiot")
         return status
 
-    def toggle(relayPin):  # a "button Press"
-        gpio.output(self.relayPin, True)
+    def toggle(pin):  # a "button Press"
+        gpio.output(pin, True)
         time.sleep(0.2)
-        gpio.output(self.relayPin, False)
+        gpio.output(pin, False)
         return
 
-    def statusCheck(door):
+    def statusCheck():
         status = gpio.input(self.sensorPin)
         return status
