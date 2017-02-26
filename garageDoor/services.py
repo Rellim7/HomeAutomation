@@ -10,7 +10,7 @@ class controller(object):
     send the door object though each function so that the whole program can handle multiple doors.
     This module only handles the door functions.
     """
-    def __init__():
+    def __init__(self):
         self.sensorPin = 4
         self.sensorPin = 17
         gpio.setup(self.sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
