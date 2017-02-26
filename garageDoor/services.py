@@ -10,6 +10,8 @@ class controller(object):
     send the door object though each function so that the whole program can handle multiple doors.
     This module only handles the door functions.
     """
+    int relayPin
+    int sensorPin
     def __init__(self):
         self.sensorPin = 4
         self.sensorPin = 17
