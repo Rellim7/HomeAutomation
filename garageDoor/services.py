@@ -75,7 +75,7 @@ class controller(object):
             print("its already closed you idiot")
         return status
 
-    def toggle(pin):  # a "button Press"
+    def toggle(self,pin):  # a "button Press"
         gpio.output(pin, True)
         time.sleep(0.2)
         gpio.output(pin, False)
