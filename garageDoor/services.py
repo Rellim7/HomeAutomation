@@ -10,10 +10,8 @@ class controller(object):
     send the door object though each function so that the whole program can handle multiple doors.
     This module only handles the door functions.
     """
-    int relayPin
-    int sensorPin
     def __init__(self):
-        self.sensorPin = 4
+        self.relayPin = 4
         self.sensorPin = 17
         gpio.setup(self.sensorPin, gpio.IN, pull_up_down=gpio.PUD_UP)
         gpio.setup(self.relayPin, gpio.OUT)
@@ -26,7 +24,7 @@ class controller(object):
         also will check if the door is already open.  If it is throw an error.
         """
         #gather the info about the door to do the checks
-        doorName = door.doorName
+        #doorName = door.doorName
         #userName = user.userName
 
         status = gpio.input(self.sensorPin)
