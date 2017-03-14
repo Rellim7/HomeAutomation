@@ -70,7 +70,8 @@ class controller(object):
             gpio.output(self.relayPin,True)
             while status == 1:              
                 status = gpio.input(self.sensorPin)
-                time.sleep(0.2)
+                time.sleep(12.2) #manual timing till i install sensor
+                status = 0
             gpio.output(self.relayPin, False)
         else:
             print("its already closed you idiot")
