@@ -32,7 +32,7 @@ class controller(object):
             self.toggle(self.relayPin)
             return True
         else:
-            print("its already open you idiot")
+            print("it's already open you idiot")
             return False
         
 
@@ -51,7 +51,7 @@ class controller(object):
             self.toggle(self.relayPin)
             return True
         else:
-            print("its already closed you idiot")
+            print("it's already closed you idiot")
             return False
 
     def forceClose(self):
@@ -74,7 +74,7 @@ class controller(object):
                 status = 0
             gpio.output(self.relayPin, False)
         else:
-            print("its already closed you idiot")
+            print("it's already closed you idiot")
         return status
 
     def toggle(self,pin):  # a "button Press"
