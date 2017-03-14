@@ -30,10 +30,11 @@ class controller(object):
         if status == 1:
             print("opening")
             self.toggle(self.relayPin)
+            return True
         else:
             print("its already open you idiot")
-
-        return
+            return False
+        
 
     def close(self):
         """
@@ -41,17 +42,17 @@ class controller(object):
         also will check if the door is already closed.  If it is throw an error.  Pulse the signal on then off.
         """
         #gather the info about the door to do the checks
-        doorName = door.doorName
+        #doorName = door.doorName
         #userName = user.userName
 
         status = 1 #gpio.input(self.sensorPin)
         if status == 1:
             print("closing")
             self.toggle(self.relayPin)
+            return True
         else:
             print("its already closed you idiot")
-
-        return status
+            return False
 
     def forceClose(self):
         """
@@ -60,17 +61,17 @@ class controller(object):
         closed state.
         """
         #gather the info about the door to do the checks
-        doorName = door.doorName
+        #doorName = door.doorName
         #userName = user.userName
 
         status = gpio.input(self.sensorPin)
         if status == 1:
             print("closing")
-            while status == 1:
-                gpio.output(self.relayPin, False)
+            gpio.output(self.relayPin,True)
+            while status == 1:              
                 status = gpio.input(sensorPin)
                 time.sleep(0.2)
-            gpio.output(self.relayPin, True)
+            gpio.output(self.relayPin, False)
         else:
             print("its already closed you idiot")
         return status

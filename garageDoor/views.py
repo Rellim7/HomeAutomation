@@ -7,10 +7,33 @@ def index(request):
     return HttpResponse("Welcome To Prime Ingenuitys Garage door division")
 
 def openDoor(request):
-    doorObj = door.objects.filter(doorName="home")
     c = controller()
-    c.open()
-    return HttpResponse("door has been opened!")
+    result = c.open()
+    if result == True:
+        return HttpResponse("door has been opened!")
+    else:
+        return HttpResponse("the Door failed to open or something")
 
 def closeDoor(request):
-    return
+    c = controller()
+    result = c.close()
+    if result == True:
+        return HttpResponse("door has been Closed")
+    else:
+        return HttpResponse("the Door failed to close or something")
+
+def forceCloseDoor(request):
+    c = controller()
+    result = c.forceClose()
+    if result == True:
+        return HttpResponse("door has been Closed")
+    else:
+        return HttpResponse("the Door failed to close or something")
+
+def statusCheck(request):
+    c = controller()
+    result = c.statusCheck()
+    if result == 1:
+        return HttpResponse("The Door is Open")
+    elif result == 0:
+        return HttpResponse("The Door is closed")
