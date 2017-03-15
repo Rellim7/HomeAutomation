@@ -28,11 +28,11 @@ class controller(object):
 
         status =1 # gpio.input(self.sensorPin)
         if status == 1:
-            print("opening")
+            #print("opening")
             self.toggle(self.relayPin)
             return True
         else:
-            print("it's already open you idiot")
+            #print("it's already open you idiot")
             return False
         
 
@@ -47,11 +47,11 @@ class controller(object):
 
         status = 1 #gpio.input(self.sensorPin)
         if status == 1:
-            print("closing")
+            #print("closing")
             self.toggle(self.relayPin)
             return True
         else:
-            print("it's already closed you idiot")
+            #print("it's already closed you idiot")
             return False
 
     def forceClose(self):
@@ -66,7 +66,7 @@ class controller(object):
 
         status = gpio.input(self.sensorPin)
         if status == 1:
-            print("closing")
+            #print("closing")
             gpio.output(self.relayPin,True)
             while status == 1:              
                 status = gpio.input(self.sensorPin)
@@ -74,7 +74,7 @@ class controller(object):
                 status = 0
             gpio.output(self.relayPin, False)
         else:
-            print("it's already closed you idiot")
+           # print("it's already closed you idiot")
         return status
 
     def toggle(self,pin):  # a "button Press"
