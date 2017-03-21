@@ -22,10 +22,10 @@ class mrCoffee(object):
         """
         Turns the machine on or off.   Need a sensor incase in manual mode to dectect power status
         """
-        if self.powerStatus = False:
+        if self.powerStatus == False:
             gpio.output(self.powerPin, True)
             self.powerStatus = True
-        elif self.powerStatus = True:
+        elif self.powerStatus == True:
             gpio.output(self.powerPin, False)
             self.powerStatus = False
         return self.powerStatus
@@ -33,10 +33,10 @@ class mrCoffee(object):
         """
         Turns the pump on or off to pump coffee or not.    
         """
-        if self.pumpStatus = False:
+        if self.pumpStatus == False:
             gpio.output(self.pumpPin, True)
             self.pumpStatus = True
-        elif self.pumpStatus = True:
+        elif self.pumpStatus == True:
             gpio.output(self.pumpPin, False)
             self.pumpStatus = False
         return self.pumpStatus
