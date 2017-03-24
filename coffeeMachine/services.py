@@ -2,6 +2,15 @@ import RPi.GPIO as gpio
 import time
 import sys
 gpio.setmode(gpio.BCM)
+
+import thread, time
+
+def input_thread(L):
+    input()
+    L.append(None)
+    
+
+
 class mrCoffee(object):
     """
     Mr coffee is here to serve up delicious coffee goodness.   He  can operate by timer or by measuring out the output.
@@ -99,10 +108,17 @@ class mrCoffee(object):
         timeDif = time.time() -startTime
         startingWeight = self.getWeight()
         weightDif = self.getWeight()- startingWeight 
+        L = []
+        thread.start_new_thread(input_thread, (L,))
+        while 1:
+            time.sleep(.1)
+            if L: break
+            weightDif = self.getWeight()- startingWeight
+            timeDif = time.time() -startTime
+            sys.stdout.write("weight: %d%%   \r" % str(weightDif))
+            sys.stdout.write("time: %d%%   \r" % str(timeDif))
+            sys.stdout.flush()      
         input("press Enter when done")
-        weightDif = self.getWeight()- startingWeight
-        timeDif = time.time() -startTime
-        print("weight = "+str(weightDif))
-        print("time = "+ str(timeDif))
         self.setWeight(weightDif)
         self.setTime(timeDif)
+        return 
