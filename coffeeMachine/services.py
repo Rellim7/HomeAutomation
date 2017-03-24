@@ -3,12 +3,8 @@ import time
 import sys
 gpio.setmode(gpio.BCM)
 
-import thread, time
+import threading as thread
 
-def input_thread(L):
-    input()
-    L.append(None)
-    
 
 
 class mrCoffee(object):
@@ -27,7 +23,9 @@ class mrCoffee(object):
         gpio.setup(self.powerPin, gpio.OUT)
         gpio.setup(self.pumpPin, gpio.OUT)
         gpio.setup(self.scalePin1, gpio.IN, pull_up_down=gpio.PUD_UP)
-
+    def input_thread(L):
+        input()
+        L.append(None)
     def togglePower(self):
         """
         Turns the machine on or off.   Need a sensor incase in manual mode to dectect power status
@@ -75,8 +73,8 @@ class mrCoffee(object):
         while timeDif <= self.runningTime:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write("weight: %d%%   \r" % str(weightDif))
-            sys.stdout.write("time: %d%%   \r" % str(timeDif))
+            sys.stdout.write("weight: %d%%   \n" % weightDif)
+            sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
         return
@@ -93,8 +91,8 @@ class mrCoffee(object):
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
             weightDif = self.getWeight()- startingWeight
-            sys.stdout.write("weight: %d%%   \r" % str(weightDif))
-            sys.stdout.write("time: %d%%   \r" % str(timeDif))
+            sys.stdout.write("weight: %d%%   \n" % weightDif)
+            sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
         return
@@ -115,8 +113,8 @@ class mrCoffee(object):
             if L: break
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write("weight: %d%%   \r" % str(weightDif))
-            sys.stdout.write("time: %d%%   \r" % str(timeDif))
+            sys.stdout.write("weight: %d%%   \n" % weightDif)
+            sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()      
         input("press Enter when done")
         self.setWeight(weightDif)
