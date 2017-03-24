@@ -63,7 +63,7 @@ class mrCoffee(object):
         startingWeight = self.getWeight()
         weightDif = self.getWeight- startingWeight
         while timeDif <= self.runningTime:
-            weightDif = self.getWeight- startingWeight
+            weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
             print("weight = "+weightDif)
             print("time = "+ timeDif)
@@ -77,7 +77,7 @@ class mrCoffee(object):
         self._togglePump()
         timeDif = time.time() -startTime
         startingWeight = self.getWeight()
-        weightDif = self.getWeight- startingWeight 
+        weightDif = self.getWeight()- startingWeight 
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
             print("weight = "+weightDif)
@@ -85,6 +85,9 @@ class mrCoffee(object):
             weightDif = self.getWeight- startingWeight
     
     def runManaul(self):
+        """
+        run a pull without automation to set or find the time or weight. Then set both of those values
+        """
         startTime =time.time()
         self._togglePump()
         timeDif = time.time() -startTime
