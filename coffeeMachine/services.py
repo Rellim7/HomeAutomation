@@ -73,7 +73,7 @@ class mrCoffee(object):
         while timeDif <= self.runningTime:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write("weight: %d%%   \n" % weightDif)
+            sys.stdout.write("\r\x1b[K weight: %d%%   \n" % weightDif)
             sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
@@ -91,7 +91,7 @@ class mrCoffee(object):
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
             weightDif = self.getWeight()- startingWeight
-            sys.stdout.write("weight: %d%%   \n" % weightDif)
+            sys.stdout.write("\r\x1b[K weight: %d%%   \n" % weightDif)
             sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
@@ -113,7 +113,7 @@ class mrCoffee(object):
             if L: break
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write("weight: %d%%   \n" % weightDif)
+            sys.stdout.write("\r\x1b[K weight: %d%%   \n" % weightDif)
             sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()      
         input("press Enter when done")
