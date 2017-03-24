@@ -66,8 +66,9 @@ class mrCoffee(object):
         while timeDif <= self.runningTime:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            print("weight = "+weightDif)
-            print("time = "+ timeDif)
+            print("weight = "+str(weightDif))
+            print("time = "+ str(timeDif))
+        self._togglePump()
         return
 
     def runWeighted(self):
@@ -81,9 +82,11 @@ class mrCoffee(object):
         weightDif = self.getWeight()- startingWeight 
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
-            print("weight = "+weightDif)
-            print("time = "+ timeDif)
+            print("weight = "+str(weightDif))
+            print("time = "+ str(timeDif))
             weightDif = self.getWeight()- startingWeight
+        self._togglePump()
+        return
     
     def runManaul(self):
         """
@@ -93,11 +96,11 @@ class mrCoffee(object):
         self._togglePump()
         timeDif = time.time() -startTime
         startingWeight = self.getWeight()
-        weightDif = self.getWeight- startingWeight 
+        weightDif = self.getWeight()- startingWeight 
         input("press Enter when done")
-        weightDif = self.getWeight- startingWeight
+        weightDif = self.getWeight()- startingWeight
         timeDif = time.time() -startTime
-        print("weight = "+weightDif)
-        print("time = "+ timeDif)
+        print("weight = "+str(weightDif))
+        print("time = "+ str(timeDif))
         self.setWeight(weightDif)
         self.setTime(timeDif)
