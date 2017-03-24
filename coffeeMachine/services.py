@@ -1,6 +1,6 @@
 import RPi.GPIO as gpio
 import time
-
+import sys
 gpio.setmode(gpio.BCM)
 class mrCoffee(object):
     """
@@ -66,8 +66,9 @@ class mrCoffee(object):
         while timeDif <= self.runningTime:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            print("weight = "+str(weightDif))
-            print("time = "+ str(timeDif))
+            sys.stdout.write("weight: %d%%   \r" % str(weightDif))
+            sys.stdout.write("time: %d%%   \r" % str(timeDif))
+            sys.stdout.flush()
         self._togglePump()
         return
 
@@ -82,9 +83,10 @@ class mrCoffee(object):
         weightDif = self.getWeight()- startingWeight 
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
-            print("weight = "+str(weightDif))
-            print("time = "+ str(timeDif))
             weightDif = self.getWeight()- startingWeight
+            sys.stdout.write("weight: %d%%   \r" % str(weightDif))
+            sys.stdout.write("time: %d%%   \r" % str(timeDif))
+            sys.stdout.flush()
         self._togglePump()
         return
     
