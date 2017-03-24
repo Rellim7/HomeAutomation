@@ -1,6 +1,7 @@
 import RPi.GPIO as gpio
 import time
 
+gpio.setmode(gpio.BCM)
 class mrCoffee(object):
     """
     Mr coffee is here to serve up delicious coffee goodness.   He  can operate by timer or by measuring out the output.
