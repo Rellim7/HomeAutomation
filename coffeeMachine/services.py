@@ -22,7 +22,8 @@ class mrCoffee(object):
         self.manualButton = 18
         self.powerStatus = False
         self.pumpStatus = False
-
+        self.setTime(29)
+        self.setWeight(36)
         #setup scale 
         self.hx = HX711(self.scalePin1, self.scalePin2)
         self.hx.set_reading_format("LSB", "MSB")
