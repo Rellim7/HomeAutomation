@@ -26,7 +26,7 @@ class mrCoffee(object):
         #setup scale 
         self.hx = HX711(self.scalePin1, self.scalePin2)
         self.hx.set_reading_format("LSB", "MSB")
-        self.hx.set_refrence_unit(4030)  #Tweak this to tune the scale.
+        self.hx.set_reference_unit(4030)  #Tweak this to tune the scale.
         self.hx.reset()
         self.hx.tare() 
 
