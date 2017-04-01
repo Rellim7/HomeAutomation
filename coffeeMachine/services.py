@@ -139,10 +139,11 @@ class mrCoffee(object):
         while manStatus:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write("\r weight: %dg   \n" % weightDif)
+            sys.stdout.write("weight: %dg   \n" % weightDif)
             sys.stdout.write("\r time: %ds   " % timeDif)
             sys.stdout.flush()
             manStatus = self.manualStatus()
+        self._togglePump()
         self.setWeight(weightDif)
         self.setTime(timeDif)
         print("The results are: Output = " + str(weightDif) + "g and time = "+ str(timeDif) +"s")
@@ -151,16 +152,17 @@ class mrCoffee(object):
 
 if __name__ == "__main__":
     c = mrCoffee()
+    print("Mr Coffee is ready to take your order.")
     while c.manualStatus():
         print("the manual button is on.  PLease flip it. thanks")
     while 1:
         try:
-            if c.timeStatus():
+            if not c.timeStatus():
                 print("Running a timed Pull")
                 c.runTimed()
                 sys.stdout.flush()
                 print("done")
-            if c.weightStatus():
+            if not c.weightStatus():
                 print("Running a weighted pull")
                 c.runWeighted()
                 sys.stdout.flush()
