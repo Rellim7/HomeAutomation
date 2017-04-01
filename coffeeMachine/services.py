@@ -49,7 +49,7 @@ class mrCoffee(object):
             gpio.output(self.powerPin, False)
             self.powerStatus = False
         return self.powerStatus
-    def forceOFf():
+    def forceOFf(self):
         #everybody panic
         gpio.output(self.pumpPin, False)
         return
