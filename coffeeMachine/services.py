@@ -102,8 +102,8 @@ class mrCoffee(object):
         while timeDif <= self.runningTime:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write(" weight: %d%%   \n" % weightDif)
-            sys.stdout.write("\r time: %d%%   " % timeDif)
+            sys.stdout.write(" weight: %dd   \n" % weightDif)
+            sys.stdout.write("\r time: %dd   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
         return
@@ -120,8 +120,8 @@ class mrCoffee(object):
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
             weightDif = self.getWeight()- startingWeight
-            sys.stdout.write("weight: %d%%   \n" % weightDif)
-            sys.stdout.write("\r time: %d%%   " % timeDif)
+            sys.stdout.write("weight: %dd   \n" % weightDif)
+            sys.stdout.write("\r time: %dd   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
         return
@@ -139,18 +139,20 @@ class mrCoffee(object):
         while manStatus:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write(" weight: %d%%   \n" % weightDif)
-            sys.stdout.write("\r time: %d%%   " % timeDif)
+            sys.stdout.write(" weight: %dd   \n" % weightDif)
+            sys.stdout.write("\r time: %dd   " % timeDif)
             sys.stdout.flush()
             manStatus = self.manualStatus()
         self.setWeight(weightDif)
         self.setTime(timeDif)
-        print("The results are: Output = " + weightDif + "g and time = "+ timeDif +"s")
+        print("The results are: Output = " + str(weightDif) + "g and time = "+ str(timeDif) +"s")
         return
 
 
 if __name__ == "__main__":
     c = mrCoffee()
+    while c.manualStatus():
+        print("the manual button is on.  PLease flip it. thanks")
     while 1:
         try:
             if c.timeStatus():
