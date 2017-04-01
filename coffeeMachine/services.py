@@ -109,6 +109,8 @@ class mrCoffee(object):
             if not self.timeStatus():
                 break
         self._togglePump()
+        while not self.timeStatus():
+            print("let go fo the button")        
         return
 
     def runWeighted(self):
@@ -129,6 +131,8 @@ class mrCoffee(object):
             if not self.weightStatus():
                 break
         self._togglePump()
+        while not self.weightStatus():
+            print("let go fo the button")
         return
     
     def runManaul(self):
