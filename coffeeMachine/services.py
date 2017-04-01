@@ -31,7 +31,8 @@ class mrCoffee(object):
         self.hx.reset()
         self.hx.tare() 
 
-        #setup pins for input/output        
+        #setup pins for input/output
+        gpio.setWarnings(False)
         gpio.setup(self.powerPin, gpio.OUT)
         gpio.setup(self.pumpPin, gpio.OUT)
         gpio.setup(self.timeButton, gpio.IN, pull_up_down=gpio.PUD_UP)
