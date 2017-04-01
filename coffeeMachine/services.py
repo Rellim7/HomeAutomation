@@ -144,6 +144,7 @@ class mrCoffee(object):
             sys.stdout.flush()
             manStatus = self.manualStatus()
         self._togglePump()
+        weightDif = self.getWeight()- startingWeight
         self.setWeight(weightDif)
         self.setTime(timeDif)
         print("The results are: Output = " + str(weightDif) + "g and time = "+ str(timeDif) +"s")
