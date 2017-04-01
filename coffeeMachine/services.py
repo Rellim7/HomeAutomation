@@ -102,8 +102,8 @@ class mrCoffee(object):
         while timeDif <= self.runningTime:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write(" weight: %dd   \n" % weightDif)
-            sys.stdout.write("\r time: %dd   " % timeDif)
+            sys.stdout.write(" weight: %dg   \n" % weightDif)
+            sys.stdout.write("\r time: %ds   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
         return
@@ -120,8 +120,8 @@ class mrCoffee(object):
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
             weightDif = self.getWeight()- startingWeight
-            sys.stdout.write("weight: %dd   \n" % weightDif)
-            sys.stdout.write("\r time: %dd   " % timeDif)
+            sys.stdout.write("weight: %dg   \n" % weightDif)
+            sys.stdout.write("\r time: %ds   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
         return
@@ -139,8 +139,8 @@ class mrCoffee(object):
         while manStatus:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write(" weight: %dd   \n" % weightDif)
-            sys.stdout.write("\r time: %dd   " % timeDif)
+            sys.stdout.write("\r weight: %dg   \n" % weightDif)
+            sys.stdout.write("\r time: %ds   " % timeDif)
             sys.stdout.flush()
             manStatus = self.manualStatus()
         self.setWeight(weightDif)
@@ -156,10 +156,17 @@ if __name__ == "__main__":
     while 1:
         try:
             if c.timeStatus():
+                print("Running a timed Pull")
                 c.runTimed()
+                sys.stdout.flush()
+                print("done")
             if c.weightStatus():
+                print("Running a weighted pull")
                 c.runWeighted()
+                sys.stdout.flush()
+                print("done")
             if c.manualStatus():
+                print("Running Manual Pull")
                 c.runManaul()
         except (KeyboardInterrupt, SystemExit):
             print ("Cleaning...")
