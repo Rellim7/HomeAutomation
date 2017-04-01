@@ -37,6 +37,7 @@ class mrCoffee(object):
         gpio.setup(self.timeButton, gpio.IN, pull_up_down=gpio.PUD_UP)
         gpio.setup(self.weightButton, gpio.IN, pull_up_down=gpio.PUD_UP)
         gpio.setup(self.manualButton, gpio.IN, pull_up_down=gpio.PUD_UP)
+        self.forceOff()
 
     def togglePower(self):
         """
@@ -49,7 +50,7 @@ class mrCoffee(object):
             gpio.output(self.powerPin, False)
             self.powerStatus = False
         return self.powerStatus
-    def forceOFf(self):
+    def forceOff(self):
         #everybody panic
         gpio.output(self.pumpPin, False)
         return
