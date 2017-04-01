@@ -106,6 +106,8 @@ class mrCoffee(object):
             sys.stdout.write(" weight: %dg   \n" % weightDif)
             sys.stdout.write("\r time: %ds   " % timeDif)
             sys.stdout.flush()
+            if self.timeStatus():
+                break
         self._togglePump()
         return
 
@@ -124,6 +126,8 @@ class mrCoffee(object):
             sys.stdout.write("weight: %dg   \n" % weightDif)
             sys.stdout.write("\r time: %ds   " % timeDif)
             sys.stdout.flush()
+            if self.weightStatus():
+                break
         self._togglePump()
         return
     
