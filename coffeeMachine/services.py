@@ -2,7 +2,7 @@ import RPi.GPIO as gpio
 import time
 import sys
 gpio.setmode(gpio.BCM)
-
+from hx711 import HX711
 import threading as thread
 
 
@@ -13,19 +13,30 @@ class mrCoffee(object):
     """
 
     def __init__(self):
-        self.powerPin = 4
-        self.pumpPin = 17
-        self.scalePin1 = 14 #subject to change.  May have multiple scale pins
+        self.powerPin = 17
+        self.pumpPin = 4
+        self.scalePin1 = 5 #subject to change.  May have multiple scale pins
+        self.scalePin2 = 6
+        self.timeButton = 19
+        self.weightButton = 13
+        self.manualButton = 18
         self.powerStatus = False
         self.pumpStatus = False
-        #setup pins for input/output
 
+        #setup scale 
+        self.hx = HX711(self.scalePin1, self.scalePin2)
+        self.hx.set_reading_format("LSB", "MSB")
+        self.hx.set_refrence_unit(4030)  #Tweak this to tune the scale.
+        self.hx.reset()
+        self.hx.tare() 
+
+        #setup pins for input/output        
         gpio.setup(self.powerPin, gpio.OUT)
         gpio.setup(self.pumpPin, gpio.OUT)
-        gpio.setup(self.scalePin1, gpio.IN, pull_up_down=gpio.PUD_UP)
-    def input_thread(L):
-        input()
-        L.append(None)
+        gpio.setup(self.timeButton, gpio.IN, pull_up_down=gpio.PUD_UP)
+        gpio.setup(self.weightButton, gpio.IN, pull_up_down=gpio.PUD_UP)
+        gpio.setup(self.manualButton, gpio.IN, pull_up_down=gpio.PUD_UP)
+
     def togglePower(self):
         """
         Turns the machine on or off.   Need a sensor incase in manual mode to dectect power status
@@ -37,6 +48,7 @@ class mrCoffee(object):
             gpio.output(self.powerPin, False)
             self.powerStatus = False
         return self.powerStatus
+
     def _togglePump(self):
         """
         Turns the pump on or off to pump coffee or not.    
@@ -52,11 +64,28 @@ class mrCoffee(object):
     def setWeight(self,weight):
         self.weightOutput = weight
         return self.weightOutput
+
     def getWeight(self):
         #measure stuff
-        weight = 0
+        self.hx.reset()
+        weight = self.hx.get_weight(4)
         return weight
-    
+
+    def timeStatus(self):
+        #check the time button to see if it is being pressed
+        status = gpio.input(self.timeButton)
+        return status
+
+    def weightStatus(self):
+        #check the weight button to see if it is being pressed
+        status = gpio.input(self.weightButton)
+        return status
+
+    def manualStatus(self):
+        #check the manual button to see if it is being pressed
+        status = gpio.input(self.manualButton)
+        return status
+
     def setTime(self, runTime):
         self.runningTime = runTime
         return self.runningTime
@@ -73,7 +102,7 @@ class mrCoffee(object):
         while timeDif <= self.runningTime:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write("\r\x1b[K weight: %d%%   \n" % weightDif)
+            sys.stdout.write(" weight: %d%%   \n" % weightDif)
             sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
@@ -91,7 +120,7 @@ class mrCoffee(object):
         while weightDif <= self.weightOutput:
             timeDif = time.time() -startTime
             weightDif = self.getWeight()- startingWeight
-            sys.stdout.write("\r\x1b[K weight: %d%%   \n" % weightDif)
+            sys.stdout.write("weight: %d%%   \n" % weightDif)
             sys.stdout.write("\r time: %d%%   " % timeDif)
             sys.stdout.flush()
         self._togglePump()
@@ -106,17 +135,32 @@ class mrCoffee(object):
         timeDif = time.time() -startTime
         startingWeight = self.getWeight()
         weightDif = self.getWeight()- startingWeight 
-        L = []
-        thread.start_new_thread(input_thread, (L,))
-        while 1:
-            time.sleep(.1)
-            if L: break
+        manStatus = self.manualStatus()
+        while manStatus:
             weightDif = self.getWeight()- startingWeight
             timeDif = time.time() -startTime
-            sys.stdout.write("\r\x1b[K weight: %d%%   \n" % weightDif)
+            sys.stdout.write(" weight: %d%%   \n" % weightDif)
             sys.stdout.write("\r time: %d%%   " % timeDif)
-            sys.stdout.flush()      
-        input("press Enter when done")
+            sys.stdout.flush()
+            manStatus = self.manualStatus()
         self.setWeight(weightDif)
         self.setTime(timeDif)
-        return 
+        print("The results are: Output = " + weightDif + "g and time = "+ timeDif +"s")
+        return
+
+
+if __name__ == "__main__":
+    c = mrCoffee()
+    while 1:
+        try:
+            if c.timeStatus():
+                c.runTimed()
+            if c.weightStatus():
+                c.runWeighted()
+            if c.manualStatus():
+                c.runManaul()
+        except (KeyboardInterrupt, SystemExit):
+            print ("Cleaning...")
+            gpio.cleanup()
+            print ("Bye!")
+            sys.exit()
