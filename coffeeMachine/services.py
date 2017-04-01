@@ -49,7 +49,10 @@ class mrCoffee(object):
             gpio.output(self.powerPin, False)
             self.powerStatus = False
         return self.powerStatus
-
+    def forceOFf():
+        #everybody panic
+        gpio.output(self.pumpPin, False)
+        return
     def _togglePump(self):
         """
         Turns the pump on or off to pump coffee or not.    
@@ -182,6 +185,7 @@ if __name__ == "__main__":
                 c.runManaul()
         except (KeyboardInterrupt, SystemExit):
             print ("Cleaning...")
+            c.forceOff()
             gpio.cleanup()
             print ("Bye!")
             sys.exit()
